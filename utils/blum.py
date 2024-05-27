@@ -10,7 +10,7 @@ from fake_useragent import UserAgent
 from aiocfscrape import CloudflareScraper
 
 class BlumBot:
-    def __init__(self, thread: int, account: str, proxy: [str, None]):
+    def __init__(self, thread, account, session, proxy):
         """
         Initialize the BlumBot with thread id, account name, and optional proxy.
         """
@@ -27,7 +27,7 @@ class BlumBot:
             }
 
         self.client = Client(name=account, api_id=config.API_ID, api_hash=config.API_HASH, workdir=config.WORKDIR, proxy=proxy)
-
+        self.session = session
         self.refresh_token = ''
 
     async def logout(self):
@@ -41,44 +41,42 @@ class BlumBot:
         Fetch and return user stats from various endpoints.
         """
         await asyncio.sleep(random.uniform(*config.DELAYS['ACCOUNT']))
+        
+        status = await self.login()
 
-        async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout = aiohttp.ClientTimeout(total=60)) as session:
-            self.session = session
-            
-            status = await self.login()
-
-            if status:
-                print("Failed to get AUTH data | try it later")
-            
-            try:
-                # Fetch user balance
-                r = await (await self.session.get("https://game-domain.blum.codes/api/v1/user/balance", proxy=self.proxy)).json()
-                points = r.get('availableBalance')
-                plat_passes = r.get('playPasses')
+        if status:
+            print("Failed to get AUTH data | try it later")
         
-                await asyncio.sleep(random.uniform(5, 7))
-        
-                # Fetch friends balance
-                r = await (await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy)).json()
-                limit_invites = r.get('limitInvitation')
-                referral_link = 't.me/BlumCryptoBot/app?startapp=ref_' + r.get('referralToken')
-        
-                await asyncio.sleep(random.uniform(5, 7))
-        
-                # Fetch friends list
-                r = await (await self.session.get("https://gateway.blum.codes/v1/friends", proxy=self.proxy)).json()
-                referrals = len(r.get('friends'))
-
-        
-                # Fetch Telegram user details
-                await self.client.connect()
-                me = await self.client.get_me()
-                phone_number, name = "'" + me.phone_number, f"{me.first_name} {me.last_name if me.last_name is not None else ''}"
-                await self.client.disconnect()
-            except:
-                pass
+        try:
+            # Fetch user balance
+            r = await (await self.session.get("https://game-domain.blum.codes/api/v1/user/balance", proxy=self.proxy)).json()
+            points = r.get('availableBalance')
+            plat_passes = r.get('playPasses')
     
-            return [phone_number, name, points, str(plat_passes), str(referrals), limit_invites, referral_link]
+            await asyncio.sleep(random.uniform(5, 7))
+    
+            # Fetch friends balance
+            r = await (await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy)).json()
+            limit_invites = r.get('limitInvitation')
+            referral_link = 't.me/BlumCryptoBot/app?startapp=ref_' + r.get('referralToken')
+    
+            await asyncio.sleep(random.uniform(5, 7))
+    
+            # Fetch friends list
+            r = await (await self.session.get("https://gateway.blum.codes/v1/friends", proxy=self.proxy)).json()
+            referrals = len(r.get('friends'))
+
+            # await self.logout()
+    
+            # Fetch Telegram user details
+            await self.client.connect()
+            me = await self.client.get_me()
+            phone_number, name = "'" + me.phone_number, f"{me.first_name} {me.last_name if me.last_name is not None else ''}"
+            await self.client.disconnect()
+        except:
+            pass
+
+        return [phone_number, name, points, str(plat_passes), str(referrals), limit_invites, referral_link]
 
     async def claim_task(self, task: dict):
         """
@@ -197,6 +195,8 @@ class BlumBot:
         return int(timestamp/1000), None, None, resp_json.get("playPasses")
 
     async def login(self):
+        
+        
         """
         Login to the game using Telegram mini app authentication.
         """
