@@ -26,7 +26,13 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
     ```bash
     INSTALL.bat
     ```
-
+	
+2.1. **If folder "venv" wasn't created:**
+	Double-click on the `INSTALL_FIX.bat` file or run the following command in the command prompt:
+	```bash
+	INSTALL_FIX.bat
+	```
+	
 #### For Other Users
 
 1. **Clone the repository:**
@@ -54,10 +60,15 @@ API_HASH = 'your_api_hash'
 #### For Windows Users
 
 1. **Run the script:**
-    Double-click on the `START.bat` file or run the following command in the command prompt:
-    ```bash
-    START.bat
-    ```
+    Double-click on the `START.bat` file **if you have 'venv' folder** or run the following command in the command prompt:
+	```bash
+	START.bat
+	```
+	**OR**
+	Double-click on the `START_FIX.bat` file **if you don't have 'venv' folder** or run the following command in the command prompt:
+	```bash
+	START_FIX.bat
+	```
 
 2. **Select an action:**
     - `1` to start the bot
@@ -134,6 +145,12 @@ BlumBot - это инструмент автоматизации Telegram, пр�
     INSTALL.bat
     ```
 
+2.1. **Если папка "venv" не создалась:**
+	Дважды щелкните на файле `INSTALL.bat` или выполните следующую команду в командной строке:
+    ```bash
+    INSTALL_FIX.bat
+    ```
+
 #### Для других пользователей
 
 1. **Клонируйте репозиторий:**
@@ -161,9 +178,14 @@ API_HASH = 'your_api_hash'
 #### Для пользователей Windows
 
 1. **Запустите скрипт:**
-    Дважды щелкните на файле `START.bat` или выполните следующую команду в командной строке:
+    Дважды щелкните на файле `START.bat` **если у вас есть папка 'venv'** или выполните следующую команду в командной строке:
     ```bash
     START.bat
+    ```
+	**ИЛИ**
+	Дважды щелкните на файле `START.bat` **если у вас нет папки 'venv'** или выполните следующую команду в командной строке:
+    ```bash
+    START_FIX.bat
     ```
 
 2. **Выберите действие:**
