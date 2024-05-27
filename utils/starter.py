@@ -31,35 +31,41 @@ async def start(thread: int, account: str, proxy: [str, None]):
     
                 await blum.play_game(play_passes)
                 await sleep(uniform(5, 10))
-    
-                for task in await blum.get_tasks():
-                    if task['status'] == 'CLAIMED' or task['title'] in config.BLACKLIST_TASKS: continue
-    
-                    if task['status'] == "NOT_STARTED":
-                        await blum.start_complete_task(task)
-                        await sleep(uniform(10, 15))
-                    elif task['status'] == 'STARTED':
-                        await sleep(uniform(10, 15))
-    
-                    if await blum.claim_task(task):
-                        logger.success(f"Thread {thread} | Completed task «{task['title']}»")
-                    else:
-                        logger.error(f"Thread {thread} | Failed complete task «{task['title']}»")
+
+                try:
+                    for task in await blum.get_tasks():
+                        if task['status'] == 'CLAIMED' or task['title'] in config.BLACKLIST_TASKS: continue
+        
+                        if task['status'] == "NOT_STARTED":
+                            await blum.start_complete_task(task)
+                            await sleep(uniform(10, 15))
+                        elif task['status'] == 'STARTED':
+                            await sleep(uniform(10, 15))
+        
+                        if await blum.claim_task(task):
+                            logger.success(f"Thread {thread} | Completed task «{task['title']}»")
+                        else:
+                            logger.error(f"Thread {thread} | Failed complete task «{task['title']}»")
+                except:
+                    pass
     
                 timestamp, start_time, end_time, play_passes = await blum.balance()
-    
-                if start_time is None and end_time is None:
-                    await blum.start()
-                    logger.info(f"Thread {thread} | Start farming!")
-    
-                elif start_time is not None and end_time is not None and timestamp >= end_time:
-                    await blum.refresh()
-                    timestamp, balance = await blum.claim()
-                    logger.success(f"Thread {thread} | Claimed reward! Balance: {balance}")
-    
-                else:
-                    logger.info(f"Thread {thread} | Sleep {end_time - timestamp} seconds!")
-                    await sleep(end_time - timestamp)
+
+                try:
+                    if start_time is None and end_time is None:
+                        await blum.start()
+                        logger.info(f"Thread {thread} | Start farming!")
+        
+                    elif start_time is not None and end_time is not None and timestamp >= end_time:
+                        await blum.refresh()
+                        timestamp, balance = await blum.claim()
+                        logger.success(f"Thread {thread} | Claimed reward! Balance: {balance}")
+        
+                    else:
+                        logger.info(f"Thread {thread} | Sleep {end_time - timestamp} seconds!")
+                        await sleep(end_time - timestamp)
+                except:
+                    pass
     
                 await sleep(10)
             except Exception as e:
