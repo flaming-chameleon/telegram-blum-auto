@@ -9,7 +9,7 @@ from utils.telegram import Accounts
 import asyncio
 from itertools import zip_longest
 from utils.core import get_all_lines
-
+from aiocfscrape import CloudflareScraper
 
 async def start(thread: int, account: str, proxy: [str, None]):
     async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout = aiohttp.ClientTimeout(total=60)) as session:
