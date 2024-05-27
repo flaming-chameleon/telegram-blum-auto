@@ -83,20 +83,37 @@ class BlumBot:
         Claim a task given its task dictionary.
         """
         resp = await self.session.post(f'https://game-domain.blum.codes/api/v1/tasks/{task["id"]}/claim', proxy=self.proxy)
-        return (await resp.json()).get('status') == "CLAIMED"
+        resp_json = await resp.json()
+        
+        logger.debug(f"Thread {self.thread} | claim_task response: {resp_json}")
+        
+        return resp_json.get('status') == "CLAIMED"
 
     async def start_complete_task(self, task: dict):
         """
         Start a task given its task dictionary.
         """
         resp = await self.session.post(f'https://game-domain.blum.codes/api/v1/tasks/{task["id"]}/start', proxy=self.proxy)
+        resp_json = await resp.json()
+        
+        logger.debug(f"Thread {self.thread} | start_complete_task response: {resp_json}")
+
 
     async def get_tasks(self):
         """
         Retrieve the list of available tasks.
         """
         resp = await self.session.get('https://game-domain.blum.codes/api/v1/tasks', proxy=self.proxy)
-        return await resp.json()
+        resp_json = await resp.json()
+        
+        logger.debug(f"Thread {self.thread} | get_tasks response: {resp_json}")
+        
+        # Ensure the response is a list of tasks
+        if isinstance(resp_json, list):
+            return resp_json
+        else:
+            logger.error(f"Thread {self.thread} | Unexpected response format in get_tasks: {resp_json}")
+            return []
 
     async def play_game(self, play_passes: int):
         """
