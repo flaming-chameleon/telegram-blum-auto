@@ -19,6 +19,7 @@ import aiohttp
 async def start(thread: int, account: str, proxy: [str, None]):
     async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout=aiohttp.ClientTimeout(total=60)) as session:
         blum = BlumBot(account=account, thread=thread, session=session, proxy=proxy)
+        max_try = 5
     
         await sleep(uniform(*config.DELAYS['ACCOUNT']))
         await blum.login()
@@ -58,19 +59,26 @@ async def start(thread: int, account: str, proxy: [str, None]):
                 timestamp, start_time, end_time, play_passes = await blum.balance()
 
                 try:
-                    if start_time is None and end_time is None:
+                    if start_time is None and end_time is None and max_try>0:
                         await blum.start()
                         logger.info(f"Thread {thread} | Start farming!")
+                        max_try-=1
         
-                    elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time:
+                    elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time and max_try>0:
                         await blum.refresh()
                         timestamp, balance = await blum.claim()
                         logger.success(f"Thread {thread} | Claimed reward! Balance: {balance}")
+                        max_try-=1
         
                     elif end_time is not None and timestamp is not None:
                         sleep_duration = end_time - timestamp
                         logger.info(f"Thread {thread} | Sleep {sleep_duration} seconds!")
+                        max_try+=5
                         await sleep(sleep_duration)
+                    
+                    elif max_try==0:
+                        break
+                        
                 except Exception as e:
                     logger.error(f"Thread {thread} | Error in farming management: {e}")
     
