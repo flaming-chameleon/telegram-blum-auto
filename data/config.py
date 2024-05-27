@@ -18,3 +18,4 @@ BLACKLIST_TASKS = ['Farm points']
 WORKDIR = "sessions/"
 
 
+ACCOUNT_PER_ONCE = 3
