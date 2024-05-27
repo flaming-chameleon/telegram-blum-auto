@@ -1,4 +1,5 @@
-## README
+
+![image psd(9)](https://github.com/flaming-chameleon/telegram-blum-auto/assets/73156836/187c6764-d6af-4f60-a7e2-f3bc656225c9)
 
 ### English
 
