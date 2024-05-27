@@ -12,14 +12,12 @@ from utils.core import get_all_lines
 from aiocfscrape import CloudflareScraper
 from fake_useragent import UserAgent
 import aiohttp
-
 async def start(thread: int, account: str, proxy: [str, None]):
-    async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout = aiohttp.ClientTimeout(total=60)) as session:
+    async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout=aiohttp.ClientTimeout(total=60)) as session:
         blum = BlumBot(account=account, thread=thread, session=session, proxy=proxy)
     
         await sleep(uniform(*config.DELAYS['ACCOUNT']))
         await blum.login()
-        #await blum.stats()
     
         while True:
             try:
@@ -29,7 +27,9 @@ async def start(thread: int, account: str, proxy: [str, None]):
     
                 timestamp, start_time, end_time, play_passes = await blum.balance()
     
-                await blum.play_game(play_passes)
+                if play_passes:
+                    await blum.play_game(play_passes)
+                
                 await sleep(uniform(5, 10))
 
                 try:
@@ -46,8 +46,8 @@ async def start(thread: int, account: str, proxy: [str, None]):
                             logger.success(f"Thread {thread} | Completed task «{task['title']}»")
                         else:
                             logger.error(f"Thread {thread} | Failed complete task «{task['title']}»")
-                except:
-                    pass
+                except Exception as e:
+                    logger.error(f"Thread {thread} | Error in task management: {e}")
     
                 timestamp, start_time, end_time, play_passes = await blum.balance()
 
@@ -56,16 +56,17 @@ async def start(thread: int, account: str, proxy: [str, None]):
                         await blum.start()
                         logger.info(f"Thread {thread} | Start farming!")
         
-                    elif start_time is not None and end_time is not None and timestamp >= end_time:
+                    elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time:
                         await blum.refresh()
                         timestamp, balance = await blum.claim()
                         logger.success(f"Thread {thread} | Claimed reward! Balance: {balance}")
         
-                    else:
-                        logger.info(f"Thread {thread} | Sleep {end_time - timestamp} seconds!")
-                        await sleep(end_time - timestamp)
-                except:
-                    pass
+                    elif end_time is not None and timestamp is not None:
+                        sleep_duration = end_time - timestamp
+                        logger.info(f"Thread {thread} | Sleep {sleep_duration} seconds!")
+                        await sleep(sleep_duration)
+                except Exception as e:
+                    logger.error(f"Thread {thread} | Error in farming management: {e}")
     
                 await sleep(10)
             except Exception as e:
