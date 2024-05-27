@@ -11,19 +11,19 @@ async def main():
     print("Soft created by: https://t.me/hidden_coding\n")
     
     # Get user input for selecting an action
-    action = int(input("Select action:\n1. Start soft\n2. Get statistics\n3. Create pyrogram sessions\n\n> "))
+    action = int(input("Select action:\n1. Start soft\n2. Create pyrogram sessions\n\n> "))
 
     # Create directories if they do not exist
     if not os.path.exists('sessions'): os.mkdir('sessions')
     if not os.path.exists('statistics'): os.mkdir('statistics')
 
     # Create pyrogram sessions
-    if action == 3:
+    if action == 2:
         await create_sessions()
 
-    # Get statistics
-    if action == 2:
-        await stats()
+    # # Get statistics
+    # if action == 2:
+    #     await stats()
 
     # Start the main process
     if action == 1:
