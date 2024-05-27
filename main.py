@@ -5,19 +5,26 @@ import asyncio  # Import asyncio for asynchronous programming
 from itertools import zip_longest  # Import zip_longest for pairing accounts with proxies
 from utils.core import get_all_lines  # Import function to read all lines from a file
 import os  # Import os for interacting with the operating system
+import argparse
 
 async def main():
     # Print creator's information
     print("Soft created by: https://t.me/hidden_coding\n")
     
     # Get user input for selecting an action
-    action = int(input("Select action:\n1. Start soft\n2. Create pyrogram sessions\n\n> "))
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-a', '--action', type=int, help='Action to perform')
+    action = parser.parse_args().action
 
     # Create directories if they do not exist
     if not os.path.exists('sessions'): os.mkdir('sessions')
     if not os.path.exists('statistics'): os.mkdir('statistics')
 
     # Create pyrogram sessions
+    if not action:
+        action = int(input("Select action:\n1. Start soft\n2. Create pyrogram sessions\n\n> "))
+    
+    
     if action == 2:
         await create_sessions()
 
