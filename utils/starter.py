@@ -11,6 +11,7 @@ from itertools import zip_longest
 from utils.core import get_all_lines
 from aiocfscrape import CloudflareScraper
 from fake_useragent import UserAgent
+import aiohttp
 
 async def start(thread: int, account: str, proxy: [str, None]):
     async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout = aiohttp.ClientTimeout(total=60)) as session:
