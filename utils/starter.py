@@ -34,26 +34,26 @@ async def start(thread: int, account: str, proxy: [str, None]):
                 if play_passes:
                     await blum.play_game(play_passes)
                 
-                await sleep(uniform(5, 10))
+                await sleep(uniform(3, 10))
 
-                try:
-                    tasks = await blum.get_tasks()
-                    for task in tasks:
-                        if task.get('status') == 'CLAIMED' or task.get('title') in config.BLACKLIST_TASKS:
-                            continue
+                # try:
+                #     tasks = await blum.get_tasks()
+                #     for task in tasks:
+                #         if task.get('status') == 'CLAIMED' or task.get('title') in config.BLACKLIST_TASKS:
+                #             continue
         
-                        if task.get('status') == "NOT_STARTED":
-                            await blum.start_complete_task(task)
-                            await sleep(uniform(10, 15))
-                        elif task.get('status') == 'STARTED':
-                            await sleep(uniform(10, 15))
+                #         if task.get('status') == "NOT_STARTED":
+                #             await blum.start_complete_task(task)
+                #             await sleep(uniform(10, 15))
+                #         elif task.get('status') == 'STARTED':
+                #             await sleep(uniform(10, 15))
         
-                        if await blum.claim_task(task):
-                            logger.success(f"Thread {thread} | Completed task «{task.get('title')}»")
-                        else:
-                            logger.error(f"Thread {thread} | Failed complete task «{task.get('title')}»")
-                except Exception as e:
-                    logger.error(f"Thread {thread} | Error in task management: {e}")
+                #         if await blum.claim_task(task):
+                #             logger.success(f"Thread {thread} | Completed task «{task.get('title')}»")
+                #         else:
+                #             logger.error(f"Thread {thread} | Failed complete task «{task.get('title')}»")
+                # except Exception as e:
+                #     logger.error(f"Thread {thread} | Error in task management: {e}")
     
                 timestamp, start_time, end_time, play_passes = await blum.balance()
 
