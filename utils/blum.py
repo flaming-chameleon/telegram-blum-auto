@@ -123,8 +123,13 @@ class BlumBot:
             await asyncio.sleep(random.uniform(*config.DELAYS['PLAY']))
             game_id = await self.start_game()
 
-            if not game_id:
-                logger.error(f"Thread {self.thread} | Couldn't start play in game!")
+            if game_id == 'cannot start game':
+                logger.error(f"Thread {self.thread} | Couldn't start play in game! Bot API bug")
+                await asyncio.sleep(random.uniform(*config.DELAYS['ERROR_PLAY']))
+                play_passes = 0
+                continue
+            else:
+                logger.error(f"Thread {self.thread} | Couldn't start play in game! Some bug idk")
                 await asyncio.sleep(random.uniform(*config.DELAYS['ERROR_PLAY']))
                 play_passes -= 1
                 continue
@@ -166,7 +171,11 @@ class BlumBot:
         Start a new game and return the game ID.
         """
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/play", proxy=self.proxy)
-        return (await resp.json()).get("gameId")
+        response_data = await resp.json()
+        if response_data.get("gameId"):
+            return response_data.get("gameId")
+        elif response_data.get("message"):
+            return response_data.get("message")
 
     async def claim_game(self, game_id: str):
         """
