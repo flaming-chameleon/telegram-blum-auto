@@ -185,14 +185,21 @@ class BlumBot:
         resp = await self.session.get("https://game-domain.blum.codes/api/v1/user/balance", proxy=self.proxy)
         resp_json = await resp.json()
         await asyncio.sleep(1)
-
+    
         timestamp = resp_json.get("timestamp")
+        play_passes = resp_json.get("playPasses")
+        
+        start_time = None
+        end_time = None
         if resp_json.get("farming"):
-            start_time = resp_json.get("farming").get("startTime")
-            end_time = resp_json.get("farming").get("endTime")
+            start_time = resp_json["farming"].get("startTime")
+            end_time = resp_json["farming"].get("endTime")
+    
+        return (int(timestamp / 1000) if timestamp is not None else None, 
+                int(start_time / 1000) if start_time is not None else None, 
+                int(end_time / 1000) if end_time is not None else None, 
+                play_passes)
 
-            return int(timestamp/1000), int(start_time/1000), int(end_time/1000), resp_json.get("playPasses")
-        return int(timestamp/1000), None, None, resp_json.get("playPasses")
 
     async def login(self):
         
