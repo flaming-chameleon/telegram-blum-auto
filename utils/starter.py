@@ -16,6 +16,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
 
     await sleep(uniform(*config.DELAYS['ACCOUNT']))
     await blum.login()
+    await blum.stats()
 
     while True:
         try:
