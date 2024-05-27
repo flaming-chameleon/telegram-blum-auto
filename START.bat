@@ -2,5 +2,5 @@
 echo Activating virtual environment...
 call venv\Scripts\activate
 echo Starting the bot...
-python main.py -a 1
+python main.py
 pause
