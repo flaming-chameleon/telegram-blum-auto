@@ -1,6 +1,5 @@
 
 ![image psd(9)](https://github.com/flaming-chameleon/telegram-blum-auto/assets/73156836/187c6764-d6af-4f60-a7e2-f3bc656225c9)
-
 ### English
 
 # BlumBot Telegram Automation
@@ -14,6 +13,22 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
 
 ### Installation
 
+#### For Windows Users
+
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/flaming-chameleon/telegram-blum-auto.git
+    cd telegram-blum-auto
+    ```
+
+2. **Run the installation script:**
+    Double-click on the `INSTALL.bat` file or run the following command in the command prompt:
+    ```bash
+    INSTALL.bat
+    ```
+
+#### For Other Users
+
 1. **Clone the repository:**
     ```bash
     git clone https://github.com/flaming-chameleon/telegram-blum-auto.git
@@ -22,7 +37,7 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
 
 2. **Install dependencies:**
     ```bash
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
     ```
 
 ### Configuration
@@ -35,6 +50,21 @@ API_HASH = 'your_api_hash'
 ```
 
 ### Usage
+
+#### For Windows Users
+
+1. **Run the script:**
+    Double-click on the `START.bat` file or run the following command in the command prompt:
+    ```bash
+    START.bat
+    ```
+
+2. **Select an action:**
+    - `1` to start the bot
+    - `2` to get statistics
+    - `3` to create Pyrogram sessions
+
+#### For Other Users
 
 1. **Run the script:**
     ```bash
@@ -57,6 +87,8 @@ API_HASH = 'your_api_hash'
 ├── main.py
 ├── README.md
 ├── requirements.txt
+├── INSTALL.bat
+├── START.bat
 └── utils
     ├── blum.py
     ├── core
@@ -79,7 +111,6 @@ For support or questions, contact me on Telegram: [@hidden_coding](https://t.me/
 
 # BlumBot Telegram Автоматизация
 
-
 BlumBot - это инструмент автоматизации Telegram, предназначенный для управления и взаимодействия с BlumCryptoBot. Этот бот может создавать сессии, собирать статистику и автоматизировать задачи для ваших аккаунтов.
 
 ### Функции
@@ -89,6 +120,22 @@ BlumBot - это инструмент автоматизации Telegram, пр�
 
 ### Установка
 
+#### Для пользователей Windows
+
+1. **Клонируйте репозиторий:**
+    ```bash
+    git clone https://github.com/flaming-chameleon/telegram-blum-auto.git
+    cd telegram-blum-auto
+    ```
+
+2. **Запустите скрипт установки:**
+    Дважды щелкните на файле `INSTALL.bat` или выполните следующую команду в командной строке:
+    ```bash
+    INSTALL.bat
+    ```
+
+#### Для других пользователей
+
 1. **Клонируйте репозиторий:**
     ```bash
     git clone https://github.com/flaming-chameleon/telegram-blum-auto.git
@@ -97,7 +144,7 @@ BlumBot - это инструмент автоматизации Telegram, пр�
 
 2. **Установите зависимости:**
     ```bash
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
     ```
 
 ### Конфигурация
@@ -110,6 +157,21 @@ API_HASH = 'your_api_hash'
 ```
 
 ### Использование
+
+#### Для пользователей Windows
+
+1. **Запустите скрипт:**
+    Дважды щелкните на файле `START.bat` или выполните следующую команду в командной строке:
+    ```bash
+    START.bat
+    ```
+
+2. **Выберите действие:**
+    - `1` чтобы запустить бота
+    - `2` чтобы получить статистику
+    - `3` чтобы создать сессии Pyrogram
+
+#### Для других пользователей
 
 1. **Запустите скрипт:**
     ```bash
@@ -132,6 +194,8 @@ API_HASH = 'your_api_hash'
 ├── main.py
 ├── README.md
 ├── requirements.txt
+├── INSTALL.bat
+├── START.bat
 └── utils
     ├── blum.py
     ├── core
@@ -139,7 +203,6 @@ API_HASH = 'your_api_hash'
     ├── starter.py
     └── telegram.py
 ```
-
 
 ### Контакты
 
