@@ -12,6 +12,10 @@ from utils.core import get_all_lines
 from aiocfscrape import CloudflareScraper
 from fake_useragent import UserAgent
 import aiohttp
+
+
+
+
 async def start(thread: int, account: str, proxy: [str, None]):
     async with CloudflareScraper(headers={'User-Agent': UserAgent(os='android').random}, timeout=aiohttp.ClientTimeout(total=60)) as session:
         blum = BlumBot(account=account, thread=thread, session=session, proxy=proxy)
@@ -33,19 +37,21 @@ async def start(thread: int, account: str, proxy: [str, None]):
                 await sleep(uniform(5, 10))
 
                 try:
-                    for task in await blum.get_tasks():
-                        if task['status'] == 'CLAIMED' or task['title'] in config.BLACKLIST_TASKS: continue
+                    tasks = await blum.get_tasks()
+                    for task in tasks:
+                        if task.get('status') == 'CLAIMED' or task.get('title') in config.BLACKLIST_TASKS:
+                            continue
         
-                        if task['status'] == "NOT_STARTED":
+                        if task.get('status') == "NOT_STARTED":
                             await blum.start_complete_task(task)
                             await sleep(uniform(10, 15))
-                        elif task['status'] == 'STARTED':
+                        elif task.get('status') == 'STARTED':
                             await sleep(uniform(10, 15))
         
                         if await blum.claim_task(task):
-                            logger.success(f"Thread {thread} | Completed task «{task['title']}»")
+                            logger.success(f"Thread {thread} | Completed task «{task.get('title')}»")
                         else:
-                            logger.error(f"Thread {thread} | Failed complete task «{task['title']}»")
+                            logger.error(f"Thread {thread} | Failed complete task «{task.get('title')}»")
                 except Exception as e:
                     logger.error(f"Thread {thread} | Error in task management: {e}")
     
@@ -71,6 +77,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
                 await sleep(10)
             except Exception as e:
                 logger.error(f"Thread {thread} | Error: {e}")
+
 
 
 async def stats():
