@@ -85,8 +85,8 @@ class BlumBot:
         resp = await self.session.post(f'https://game-domain.blum.codes/api/v1/tasks/{task["id"]}/claim', proxy=self.proxy)
         resp_json = await resp.json()
         
-        logger.debug(f"Thread {self.thread} | claim_task response: {resp_json}")
-        
+        logger.debug(f"{self.client.name} | claim_task response: {resp_json}")
+
         return resp_json.get('status') == "CLAIMED"
 
     async def start_complete_task(self, task: dict):
@@ -95,8 +95,8 @@ class BlumBot:
         """
         resp = await self.session.post(f'https://game-domain.blum.codes/api/v1/tasks/{task["id"]}/start', proxy=self.proxy)
         resp_json = await resp.json()
-        
-        logger.debug(f"Thread {self.thread} | start_complete_task response: {resp_json}")
+
+        logger.debug(f"{self.client.name} | start_complete_task response: {resp_json}")
 
 
     async def get_tasks(self):
@@ -105,14 +105,14 @@ class BlumBot:
         """
         resp = await self.session.get('https://game-domain.blum.codes/api/v1/tasks', proxy=self.proxy)
         resp_json = await resp.json()
-        
-        logger.debug(f"Thread {self.thread} | get_tasks response: {resp_json}")
-        
+
+        logger.debug(f"{self.client.name} | get_tasks response: {resp_json}")
+
         # Ensure the response is a list of tasks
         if isinstance(resp_json, list):
             return resp_json
         else:
-            logger.error(f"Thread {self.thread} | Unexpected response format in get_tasks: {resp_json}")
+            logger.error(f"{self.client.name} | Unexpected response format in get_tasks: {resp_json}")
             return []
 
     async def play_game(self, play_passes: int):
@@ -124,16 +124,16 @@ class BlumBot:
             game_id = await self.start_game()
 
             if not game_id:
-                logger.info(f"Thread {self.thread} | Couldn't start play in game! play_passes: {play_passes}")
+                logger.info(f"{self.client.name} | Couldn't start play in game! play_passes: {play_passes}")
                 break
-                
+
             await asyncio.sleep(random.uniform(30, 40))
-            
+
             msg, points = await self.claim_game(game_id)
             if isinstance(msg, bool) and msg:
-                logger.info(f"Thread {self.thread} | Finish play in game!; reward: {points}")
+                logger.info(f"{self.client.name} | Finish play in game!; reward: {points}")
             else:
-                logger.info(f"Thread {self.thread} | Couldn't play game; msg: {msg} play_passes: {play_passes}")
+                logger.info(f"{self.client.name} | Couldn't play game; msg: {msg} play_passes: {play_passes}")
                 break
                     
             await asyncio.sleep(random.uniform(30, 40))
