@@ -4,7 +4,7 @@ from random import randint, uniform
 from data import config
 from utils.core import logger
 import datetime
-import pandas as pd
+# import pandas as pd
 from utils.telegram import Accounts
 import asyncio
 from itertools import zip_longest
@@ -89,21 +89,22 @@ async def start(thread: int, account: str, proxy: [str, None]):
 
 
 async def stats():
-    accounts = await Accounts().get_accounts()
-    proxys = get_all_lines("data/proxy.txt")
+    logger.success("Analytics disabled")
+    # accounts = await Accounts().get_accounts()
+    # proxys = get_all_lines("data/proxy.txt")
 
-    tasks = []
-    for thread, (account, proxy) in enumerate(zip_longest(accounts, proxys)):
-        if not account: break
-        tasks.append(asyncio.create_task(BlumBot(account=account, thread=thread, proxy=proxy).stats()))
+    # tasks = []
+    # for thread, (account, proxy) in enumerate(zip_longest(accounts, proxys)):
+    #     if not account: break
+    #     tasks.append(asyncio.create_task(BlumBot(account=account, thread=thread, proxy=proxy).stats()))
 
-    data = await asyncio.gather(*tasks)
+    # data = await asyncio.gather(*tasks)
 
-    path = f"statistics/statistics_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.csv"
-    columns = ['Phone number', 'Name', 'Points', 'Play passes', 'Referrals', 'Limit invites', 'Referral link']
+    # path = f"statistics/statistics_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.csv"
+    # columns = ['Phone number', 'Name', 'Points', 'Play passes', 'Referrals', 'Limit invites', 'Referral link']
+    
+    # df = pd.DataFrame(data, columns=columns)
+    # df['Name'] = df['Name'].astype(str)
+    # df.to_csv(path, index=False, encoding='utf-8-sig')
 
-    df = pd.DataFrame(data, columns=columns)
-    df['Name'] = df['Name'].astype(str)
-    df.to_csv(path, index=False, encoding='utf-8-sig')
-
-    logger.success(f"Saved statistics to {path}")
+    # logger.success(f"Saved statistics to {path}")
