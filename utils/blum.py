@@ -115,7 +115,7 @@ class BlumBot:
             logger.error(f"Thread {self.thread} | Unexpected response format in get_tasks: {resp_json}")
             return []
 
-    async def play_game(self, play_passes: int):
+        async def play_game(self, play_passes: int):
         """
         Play the game a specified number of times using available play passes.
         """
@@ -124,40 +124,19 @@ class BlumBot:
             game_id = await self.start_game()
 
             if not game_id:
-                logger.info(f"[ {self.index} ] Couldn't start play in game! play_passes: {play_passes}")
+                logger.info(f"Thread {self.thread} | Couldn't start play in game! play_passes: {play_passes}")
                 break
                 
             await asyncio.sleep(random.uniform(30, 40))
             
             msg, points = await self.claim_game(game_id)
-                if isinstance(msg, bool) and msg:
-                    logger.info(f"Thread {self.thread} | Finish play in game!; reward: {points}")
-                else:
-                    logger.info(f"Thread {self.thread} | Couldn't play game; msg: {msg} play_passes: {play_passes}")
-                    break
+            if isinstance(msg, bool) and msg:
+                logger.info(f"Thread {self.thread} | Finish play in game!; reward: {points}")
+            else:
+                logger.info(f"Thread {self.thread} | Couldn't play game; msg: {msg} play_passes: {play_passes}")
+                break
                     
-            await asyncio.sleep(random.uniform([30, 40]))
-
-            # if game_id == 'cannot start game':
-            #     logger.error(f"Thread {self.thread} | Couldn't start play in game! Bot API bug")
-            #     await asyncio.sleep(random.uniform(*config.DELAYS['ERROR_PLAY']))
-            #     play_passes = 0
-            #     continue
-            # else:
-            #     logger.error(f"Thread {self.thread} | Couldn't start play in game! Some bug idk")
-            #     await asyncio.sleep(random.uniform(*config.DELAYS['ERROR_PLAY']))
-            #     play_passes -= 1
-            #     continue
-
-            # logger.info(f"Thread {self.thread} | Start play in game! GameId: {game_id}")
-            # await asyncio.sleep(30)
-
-            # msg, points = await self.claim_game(game_id)
-            # if isinstance(msg, bool) and msg:
-            #     logger.success(f"Thread {self.thread} | Finish play in game!; reward: {points}")
-            # else:
-            #     logger.error(f"Thread {self.thread} | Couldn't play game; msg: {msg}")
-            #     await asyncio.sleep(random.uniform(*config.DELAYS['ERROR_PLAY']))
+            await asyncio.sleep(random.uniform(30, 40))
 
             play_passes -= 1
 
