@@ -1,4 +1,4 @@
-from utils.core import create_sessions  # Import function to create pyrogram sessions
+from utils.core import create_sessions, logger  # Import function to create pyrogram sessions
 from utils.telegram import Accounts  # Import Accounts class to manage Telegram accounts
 from utils.starter import start, stats  # Import functions to start the process and get statistics
 import asyncio  # Import asyncio for asynchronous programming
@@ -35,19 +35,23 @@ async def main():
     # Start the main process
     if action == 1:
         # Get accounts from the Accounts class
-        accounts = await Accounts().get_accounts()
-        # Read proxies from file
-        proxys = get_all_lines("data/proxy.txt")
+        try:
+            accounts = await Accounts().get_accounts()
 
-        tasks = []
-        # Iterate over accounts and proxies, creating a task for each pair
-        for thread, (account, proxy) in enumerate(zip_longest(accounts, proxys)):
-            if not account: break  # Exit loop if no more accounts
-            # Create and append the task to the tasks list
-            tasks.append(asyncio.create_task(start(account=account, thread=thread, proxy=proxy)))
+            # Read proxies from file
+            proxys = get_all_lines("data/proxy.txt")
 
-        # Run all tasks concurrently
-        await asyncio.gather(*tasks)
+            tasks = []
+            # Iterate over accounts and proxies, creating a task for each pair
+            for thread, (account, proxy) in enumerate(zip_longest(accounts, proxys)):
+                if not account: break  # Exit loop if no more accounts
+                # Create and append the task to the tasks list
+                tasks.append(asyncio.create_task(start(account=account, thread=thread, proxy=proxy)))
+
+            # Run all tasks concurrently
+            await asyncio.gather(*tasks)
+        except ValueError:
+            logger.error('No sessions, please add one by typing 2 in this CMD next start')
 
 if __name__ == '__main__':
     # Print application banner
