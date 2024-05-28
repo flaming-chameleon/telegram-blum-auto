@@ -28,13 +28,13 @@ async def start(thread: int, account: str, proxy: [str, None]):
             try:
                 msg = await blum.claim_daily_reward()
                 if isinstance(msg, bool) and msg:
-                    logger.success(f"Thread {thread} | Claimed daily reward!")
-    
+                    logger.success(f"{account} | Claimed daily reward!")
+
                 timestamp, start_time, end_time, play_passes = await blum.balance()
-    
+
                 if play_passes and play_passes > 0:
                     await blum.play_game(play_passes)
-                
+
                 await sleep(uniform(3, 10))
 
                 # try:
@@ -42,49 +42,49 @@ async def start(thread: int, account: str, proxy: [str, None]):
                 #     for task in tasks:
                 #         if task.get('status') == 'CLAIMED' or task.get('title') in config.BLACKLIST_TASKS:
                 #             continue
-        
+
                 #         if task.get('status') == "NOT_STARTED":
                 #             await blum.start_complete_task(task)
                 #             await sleep(uniform(10, 15))
                 #         elif task.get('status') == 'STARTED':
                 #             await sleep(uniform(10, 15))
-        
+
                 #         if await blum.claim_task(task):
-                #             logger.success(f"Thread {thread} | Completed task «{task.get('title')}»")
+                #             logger.success(f"{account} | Completed task «{task.get('title')}»")
                 #         else:
-                #             logger.error(f"Thread {thread} | Failed complete task «{task.get('title')}»")
+                #             logger.error(f"{account} | Failed complete task «{task.get('title')}»")
                 # except Exception as e:
-                #     logger.error(f"Thread {thread} | Error in task management: {e}")
-    
+                #     logger.error(f"{account} | Error in task management: {e}")
+
                 timestamp, start_time, end_time, play_passes = await blum.balance()
 
                 try:
                     if start_time is None and end_time is None and max_try>0:
                         await blum.start()
-                        logger.info(f"Thread {thread} | Start farming!")
+                        logger.info(f"{account} | Start farming!")
                         max_try-=1
-        
+
                     elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time and max_try>0:
                         await blum.refresh()
                         timestamp, balance = await blum.claim()
-                        logger.success(f"Thread {thread} | Claimed reward! Balance: {balance}")
+                        logger.success(f"{account} | Claimed reward! Balance: {balance}")
                         max_try-=1
-        
+
                     elif end_time is not None and timestamp is not None:
                         sleep_duration = end_time - timestamp
-                        logger.info(f"Thread {thread} | Sleep {sleep_duration} seconds!")
+                        logger.info(f"{account} | Sleep {sleep_duration} seconds!")
                         max_try+=5
                         await sleep(sleep_duration)
-                    
+
                     elif max_try==0:
                         break
-                        
+
                 except Exception as e:
-                    logger.error(f"Thread {thread} | Error in farming management: {e}")
-    
+                    logger.error(f"{account} | Error in farming management: {e}")
+
                 await sleep(10)
             except Exception as e:
-                logger.error(f"Thread {thread} | Error: {e}")
+                logger.error(f"{account} | Error: {e}")
 
 
 
