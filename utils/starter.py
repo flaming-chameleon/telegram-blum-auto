@@ -32,7 +32,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
     
                 timestamp, start_time, end_time, play_passes = await blum.balance()
     
-                if not play_passes and play_passes > 0:
+                if play_passes and play_passes > 0:
                     await blum.play_game(play_passes)
                 
                 await sleep(uniform(3, 10))
