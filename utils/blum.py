@@ -123,7 +123,7 @@ class BlumBot:
             await asyncio.sleep(random.uniform(*config.DELAYS['PLAY']))
             game_id = await self.start_game()
 
-            if not game_id:
+            if not game_id or game_id == "cannot start game":
                 logger.info(f"{self.client.name} | Couldn't start play in game! play_passes: {play_passes}")
                 break
 
