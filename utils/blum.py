@@ -172,9 +172,9 @@ class BlumBot:
         """
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/play", proxy=self.proxy)
         response_data = await resp.json()
-        if response_data.get("gameId"):
+        if "gameId" in response_data:
             return response_data.get("gameId")
-        elif response_data.get("message"):
+        elif "message" in response_data:
             return response_data.get("message")
 
     async def claim_game(self, game_id: str):
