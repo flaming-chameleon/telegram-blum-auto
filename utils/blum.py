@@ -115,7 +115,7 @@ class BlumBot:
             logger.error(f"Thread {self.thread} | Unexpected response format in get_tasks: {resp_json}")
             return []
 
-        async def play_game(self, play_passes: int):
+    async def play_game(self, play_passes: int):
         """
         Play the game a specified number of times using available play passes.
         """
