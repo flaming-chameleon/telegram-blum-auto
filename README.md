@@ -3,9 +3,9 @@
 
 
 ## Recommendation before usage
-```text
-use Python version 3.10
-```
+
+# 🔥🔥 use PYTHON 3.10 🔥🔥
+
 
 ![image psd(12)](https://github.com/flaming-chameleon/telegram-blum-auto/assets/73156836/b1b9190e-7860-405a-aa2d-84728967e733)
 
