@@ -1,3 +1,4 @@
+[![Join our Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/hidden_coding)
 
 ![image psd(9)](https://github.com/flaming-chameleon/telegram-blum-auto/assets/73156836/187c6764-d6af-4f60-a7e2-f3bc656225c9)
 
