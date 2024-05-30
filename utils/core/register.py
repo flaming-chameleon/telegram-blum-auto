@@ -1,12 +1,13 @@
 import pyrogram
-from loguru import logger
+from utils.core import logger
 from data import config
 
 
 async def create_sessions():
     while True:
         session_name = input('\nВведите название сессии (для выхода нажмите Enter):\nWrite a session name and press enter: ')
-        if not session_name: return
+        if not session_name: 
+            return
 
         session = pyrogram.Client(
             api_id=config.API_ID,
