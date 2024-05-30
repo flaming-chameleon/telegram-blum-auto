@@ -179,7 +179,7 @@ class BlumBot:
         json_data = {"gameId": game_id, "points": points}
 
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/claim", json=json_data, proxy=self.proxy)
-        if resp.status_code != 200:
+        if resp.status != 200:
             asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/claim", json=json_data, proxy=self.proxy)
         
@@ -192,7 +192,7 @@ class BlumBot:
         Claim the farming rewards.
         """
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy)
-        if resp.status_code != 200:
+        if resp.status != 200:
             asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy)
         
@@ -206,7 +206,7 @@ class BlumBot:
         """
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
 
-        if resp.status_code != 200:
+        if resp.status != 200:
             asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
 
