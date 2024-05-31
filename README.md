@@ -37,15 +37,7 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
     ```bash
     run.bat
     ```
-#### For Unix-Users
-
-1. **Clone the repository:**
-    ```bash
-    git clone https://github.com/flaming-chameleon/telegram-blum-auto.git
-    cd telegram-blum-auto
-    ```
-
-2. **Run script:**
+For Unix-Users
     ```bash
     run.sh
     ```
@@ -65,11 +57,6 @@ API_HASH = 'your_api_hash'
 
 1. **Run the script:**
     ```run.bat``` or ```run.sh```
-
-2. **Select an action:**
-    - `1` to start the bot
-    - `2` to create Pyrogram sessions
-
 
 2. **Select an action:**
     - `1` create session
@@ -131,19 +118,10 @@ BlumBot - это инструмент автоматизации для Telegram
     ```bash
     run.bat
     ```
-
-#### Для Unix-пользователей
-
-1. **Клонируйте репозиторий:**
-    ```bash
-    git clone https://github.com/flaming-chameleon/telegram-blum-auto.git
-    cd telegram-blum-auto
-    ```
-
-2. **Запустите скрипт:**
-    ```bash
-    run.sh
-    ```
+   Для Unix-пользователей
+   ```
+   sh run.sh
+   ```
 
 ### Конфигурация
 
