@@ -83,8 +83,7 @@ API_HASH = 'your_api_hash'
 
 2. **Select an action:**
     - `1` to start the bot
-    - `2` to get statistics
-    - `3` to create Pyrogram sessions
+    - `2` to create Pyrogram sessions
 
 #### For Other Users
 
@@ -96,7 +95,6 @@ API_HASH = 'your_api_hash'
 2. **Select an action:**
     - `1` to start the bot
     - `2` to get statistics
-    - `3` to create Pyrogram sessions
 
 ### Directory Structure
 
@@ -201,8 +199,7 @@ API_HASH = 'your_api_hash'
 
 2. **Выберите действие:**
     - `1` чтобы запустить бота
-    - `2` чтобы получить статистику
-    - `3` чтобы создать сессии Pyrogram
+    - `2` чтобы создать сессии Pyrogram
 
 #### Для других пользователей
 
@@ -213,8 +210,7 @@ API_HASH = 'your_api_hash'
 
 2. **Выберите действие:**
     - `1` чтобы запустить бота
-    - `2` чтобы получить статистику
-    - `3` чтобы создать сессии Pyrogram
+    - `2` чтобы создать сессии Pyrogram
 
 ### Структура директории
 

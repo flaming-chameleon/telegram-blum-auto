@@ -1,6 +1,8 @@
 import os
-from data import config
+
 from pyrogram import Client
+
+from data import config
 from utils.core import logger
 
 
@@ -20,7 +22,7 @@ class Accounts:
         return sessions
 
     async def check_valid_sessions(self, sessions: list):
-        logger.info(f"Checking sessions...")
+        logger.info("Checking sessions...")
 
         valid_sessions = []
         for session in sessions:
@@ -31,9 +33,10 @@ class Accounts:
                     valid_sessions.append(session)
 
                 await client.disconnect()
-            except: pass
+            except:
+                pass
 
-        logger.success(f"Valid sessions: {len(valid_sessions)}; Invalid: {len(sessions)-len(valid_sessions)}")
+        logger.success(f"Valid sessions: {len(valid_sessions)}; Invalid: {len(sessions) - len(valid_sessions)}")
         return valid_sessions
 
     async def get_accounts(self):

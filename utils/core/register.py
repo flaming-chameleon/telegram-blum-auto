@@ -1,6 +1,7 @@
 import pyrogram
-from utils.core import logger
+
 from data import config
+from utils.core import logger
 
 
 async def create_sessions():
@@ -19,4 +20,5 @@ async def create_sessions():
         async with session:
             user_data = await session.get_me()
 
-        logger.success(f'Успешно добавлена сессия {user_data.username} | {user_data.phone_number}\nSession successful added for {user_data.username} | {user_data.phone_number}')
+        logger.success(f'Успешно добавлена сессия {user_data.username} | {user_data.phone_number}\nSession successful '
+                       f'added for {user_data.username} | {user_data.phone_number}')
