@@ -13,10 +13,10 @@ class BlumBot:
         Initialize the BlumBot with thread id, account name, and optional proxy.
         """
         # noinspection HttpUrlsUsage
-        self.proxy = f"http://{proxy}" if proxy is not None else None
+        self.proxy = f"http://{proxy}" if config.PROXY is not None else None
         self.thread = thread
 
-        if proxy:
+        if config.PROXY is True and proxy is not None:
             proxy = {
                 "scheme": "http",
                 "hostname": proxy.split(":")[1].split("@")[1],
