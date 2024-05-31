@@ -32,19 +32,12 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
     cd telegram-blum-auto
     ```
 
-2. **Run the installation script:**
-	Double-click on the `INSTALL.bat` file or run the following command in the command prompt:
+2. **Run script:**
+	Double-click on the `run.bat` file or run the following command in the command prompt:
     ```bash
     run.bat
     ```
-	
-- **If folder "venv" wasn't created:**
-	Double-click on the `INSTALL_FIX.bat` file or run the following command in the command prompt:
-	```bash
-	INSTALL_FIX.bat
-	```
-	
-#### For Other Users
+#### For Unix-Users
 
 1. **Clone the repository:**
     ```bash
@@ -52,9 +45,9 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
     cd telegram-blum-auto
     ```
 
-2. **Install dependencies:**
+2. **Run script:**
     ```bash
-    pip3 install -r requirements.txt
+    run.sh
     ```
 
 ### Configuration
@@ -71,30 +64,16 @@ API_HASH = 'your_api_hash'
 #### For Windows Users
 
 1. **Run the script:**
-    Double-click on the `START.bat` file **if you have 'venv' folder** or run the following command in the command prompt:
-	```bash
-	START.bat
-	```
-	**OR**
-	Double-click on the `START_FIX.bat` file **if you don't have 'venv' folder** or run the following command in the command prompt:
-	```bash
-	START_FIX.bat
-	```
+    ```run.bat``` or ```run.sh```
 
 2. **Select an action:**
     - `1` to start the bot
     - `2` to create Pyrogram sessions
 
-#### For Other Users
-
-1. **Run the script:**
-    ```bash
-    python main.py
-    ```
 
 2. **Select an action:**
-    - `1` to start the bot
-    - `2` to get statistics
+    - `1` create session
+    - `2` run clicker
 
 ### Directory Structure
 
@@ -107,8 +86,8 @@ API_HASH = 'your_api_hash'
 ├── main.py
 ├── README.md
 ├── requirements.txt
-├── INSTALL.bat
-├── START.bat
+├── run.bat
+├── run.sh
 └── utils
     ├── blum.py
     ├── core
@@ -123,15 +102,14 @@ For support or questions, contact me on Telegram: [@hidden_coding](https://t.me/
 
 ---
 
-### Russian
+### Русский
 
-### Контакты
+# 🔥🔥 используй PYTHON 3.10 🔥🔥
 
-Для поддержки или вопросов, свяжитесь со мной в Telegram: [@hidden_coding](https://t.me/hidden_coding)
 
-# BlumBot Telegram Автоматизация
+# BlumBot Автоматизация для Telegram
 
-BlumBot - это инструмент автоматизации Telegram, предназначенный для управления и взаимодействия с BlumCryptoBot. Этот бот может создавать сессии, собирать статистику и автоматизировать задачи для ваших аккаунтов.
+BlumBot - это инструмент автоматизации для Telegram, разработанный для помощи в управлении и взаимодействии с BlumCryptoBot. Этот бот может создавать сессии, собирать статистику и автоматизировать задачи для ваших аккаунтов.
 
 ### Функции
 - Создание сессий Pyrogram
@@ -148,19 +126,13 @@ BlumBot - это инструмент автоматизации Telegram, пр�
     cd telegram-blum-auto
     ```
 
-2. **Запустите скрипт установки:**
-    Дважды щелкните на файле `INSTALL.bat` или выполните следующую команду в командной строке:
+2. **Запустите скрипт:**
+    Дважды щелкните по файлу `run.bat` или выполните следующую команду в командной строке:
     ```bash
     run.bat
     ```
 
-- **Если папка "venv" не создалась:**
-	Дважды щелкните на файле `INSTALL_FIX.bat` или выполните следующую команду в командной строке:
-    ```bash
-    INSTALL_FIX.bat
-    ```
-
-#### Для других пользователей
+#### Для Unix-пользователей
 
 1. **Клонируйте репозиторий:**
     ```bash
@@ -168,14 +140,14 @@ BlumBot - это инструмент автоматизации Telegram, пр�
     cd telegram-blum-auto
     ```
 
-2. **Установите зависимости:**
+2. **Запустите скрипт:**
     ```bash
-    pip3 install -r requirements.txt
+    run.sh
     ```
 
 ### Конфигурация
 
-Отредактируйте файл `data/config.py`, добавив ваш `API_ID` и `API_HASH`.
+Отредактируйте файл `data/config.py`, добавив ваши `API_ID` и `API_HASH`.
 
 ```python
 API_ID = 'your_api_id'
@@ -187,32 +159,13 @@ API_HASH = 'your_api_hash'
 #### Для пользователей Windows
 
 1. **Запустите скрипт:**
-    Дважды щелкните на файле `START.bat` **если у вас есть папка 'venv'** или выполните следующую команду в командной строке:
-    ```bash
-    START.bat
-    ```
-	**ИЛИ**
-	Дважды щелкните на файле `START_FIX.bat` **если у вас нет папки 'venv'** или выполните следующую команду в командной строке:
-    ```bash
-    START_FIX.bat
-    ```
+    ```run.bat``` или ```run.sh```
 
 2. **Выберите действие:**
     - `1` чтобы запустить бота
     - `2` чтобы создать сессии Pyrogram
 
-#### Для других пользователей
-
-1. **Запустите скрипт:**
-    ```bash
-    python main.py
-    ```
-
-2. **Выберите действие:**
-    - `1` чтобы запустить бота
-    - `2` чтобы создать сессии Pyrogram
-
-### Структура директории
+### Структура каталогов
 
 ```plaintext
 .
@@ -223,8 +176,8 @@ API_HASH = 'your_api_hash'
 ├── main.py
 ├── README.md
 ├── requirements.txt
-├── INSTALL.bat
-├── START.bat
+├── run.bat
+├── run.sh
 └── utils
     ├── blum.py
     ├── core
@@ -233,6 +186,6 @@ API_HASH = 'your_api_hash'
     └── telegram.py
 ```
 
-### Контакты
+### Контакт
 
-Для поддержки или вопросов, свяжитесь со мной в Telegram: [@hidden_coding](https://t.me/hidden_coding)
+Для поддержки или вопросов свяжитесь со мной в Telegram: [@hidden_coding](https://t.me/hidden_coding)
