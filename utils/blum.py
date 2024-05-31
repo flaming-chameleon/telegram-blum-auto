@@ -12,7 +12,7 @@ class BlumBot:
         """
         Initialize the BlumBot with thread id, account name, and optional proxy.
         """
-        self.proxy = f"http://{proxy}" if proxy is not None else None
+        self.proxy = f"http://{proxy}" if config.PROXY is not None else None
         self.thread = thread
 
         if proxy:
