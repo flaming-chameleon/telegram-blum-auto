@@ -35,7 +35,7 @@ async def main():
                 proxys = get_all_lines("data/proxy.txt")
             else:
                 proxys = ""
-                
+
             tasks = []
             for thread, (account, proxy) in enumerate(zip_longest(accounts, proxys)):
                 if not account:
