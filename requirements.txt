@@ -1,6 +1,6 @@
-pyrogram==2.0.106
-tgcrypto==1.2.5
-loguru==0.7.2
-aiohttp==3.9.5
-fake-useragent==1.5.1
-aiocfscrape==1.0.0
+https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
+tgcrypto
+loguru
+aiohttp
+fake-useragent
+aiocfscrape

@@ -1,7 +1,7 @@
 import os
 from data import config
 from pyrogram import Client
-from utils.core import logger
+from utils.core.logger import logger
 
 
 class Accounts:
@@ -25,16 +25,24 @@ class Accounts:
         valid_sessions = []
         for session in sessions:
             try:
-                client = Client(name=session, api_id=self.api_id, api_hash=self.api_hash, workdir=self.workdir)
+                client = Client(
+                    name=session,
+                    no_updates=True,
+                    api_id=self.api_id,
+                    api_hash=self.api_hash,
+                    workdir=self.workdir,
+                )
 
                 if await client.connect():
                     valid_sessions.append(session)
 
                 await client.disconnect()
-            except:
-                pass
+            except Exception as e:
+                logger.error(f"Session: {session} is invalid: {e}")
 
-        logger.success(f"Valid sessions: {len(valid_sessions)}; Invalid: {len(sessions) - len(valid_sessions)}")
+        logger.success(
+            f"Valid sessions: {len(valid_sessions)}; Invalid: {len(sessions) - len(valid_sessions)}"
+        )
         return valid_sessions
 
     async def get_accounts(self):

@@ -1,5 +1,5 @@
 def get_all_lines(filepath: str):
-    with open(filepath, 'r') as file:
+    with open(filepath, "r") as file:
         lines = file.readlines()
 
     if not lines:
