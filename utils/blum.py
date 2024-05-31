@@ -180,7 +180,7 @@ class BlumBot:
 
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/claim", json=json_data, proxy=self.proxy)
         if resp.status != 200:
-            asyncio.sleep(1)
+            await asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/claim", json=json_data, proxy=self.proxy)
         
         txt = await resp.text()
@@ -193,7 +193,7 @@ class BlumBot:
         """
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy)
         if resp.status != 200:
-            asyncio.sleep(1)
+            await asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy)
         
         resp_json = await resp.json()
@@ -207,7 +207,7 @@ class BlumBot:
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
 
         if resp.status != 200:
-            asyncio.sleep(1)
+            await asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
 
     async def balance(self):
