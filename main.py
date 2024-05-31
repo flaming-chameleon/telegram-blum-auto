@@ -6,6 +6,7 @@ from itertools import zip_longest
 from utils.core import get_all_lines
 import os
 import argparse
+from data import config
 
 
 async def main():
@@ -30,8 +31,11 @@ async def main():
         try:
             accounts = await Accounts().get_accounts()
 
-            proxys = get_all_lines("data/proxy.txt")
-
+            if config.PROXY is True:
+                proxys = get_all_lines("data/proxy.txt")
+            else:
+                proxys = ""
+                
             tasks = []
             for thread, (account, proxy) in enumerate(zip_longest(accounts, proxys)):
                 if not account:
