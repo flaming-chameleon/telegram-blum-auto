@@ -15,7 +15,7 @@ class BlumBot:
         self.proxy = f"http://{proxy}" if config.PROXY is not None else None
         self.thread = thread
 
-        if proxy:
+        if config.PROXY:
             proxy = {
                 "scheme": "http",
                 "hostname": proxy.split(":")[1].split("@")[1],
