@@ -19,4 +19,4 @@ WORKDIR = "sessions/"
 
 
 ACCOUNT_PER_ONCE = 3
-PROXY = True
+PROXY = False
