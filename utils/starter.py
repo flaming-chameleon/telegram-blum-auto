@@ -8,6 +8,7 @@ from fake_useragent import UserAgent
 from data import config
 from utils.blum import BlumBot
 from utils.core import logger
+from utils.helper import format_duration
 
 
 async def start(thread: int, account: str, proxy: [str, None]):
@@ -48,7 +49,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
 
                     elif end_time is not None and timestamp is not None:
                         sleep_duration = end_time - timestamp
-                        logger.info(f"{account} | Sleep {sleep_duration} seconds!")
+                        logger.info(f"{account} | Sleep {format_duration(sleep_duration)}")
                         max_try += 5
                         await sleep(sleep_duration)
 

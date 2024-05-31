@@ -35,7 +35,7 @@ BlumBot is a Telegram automation tool designed to help you manage and interact w
 2. **Run the installation script:**
 	Double-click on the `INSTALL.bat` file or run the following command in the command prompt:
     ```bash
-    INSTALL.bat
+    run.bat
     ```
 	
 - **If folder "venv" wasn't created:**
@@ -151,7 +151,7 @@ BlumBot - это инструмент автоматизации Telegram, пр�
 2. **Запустите скрипт установки:**
     Дважды щелкните на файле `INSTALL.bat` или выполните следующую команду в командной строке:
     ```bash
-    INSTALL.bat
+    run.bat
     ```
 
 - **Если папка "venv" не создалась:**
