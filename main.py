@@ -21,7 +21,7 @@ async def main():
         os.mkdir('statistics')
 
     if not action:
-        action = int(input("Select action:\n1. Start soft\n2. Create pyrogram sessions\n\n> "))
+        action = int(input("Select action:\n1. Create pyrogram session\n2. Run clicker\n\n> "))
 
     if action == 1:
         await create_sessions()
