@@ -14,14 +14,15 @@ class BlumBot:
         """
         self.proxy = f"http://{proxy}" if proxy is not None else None
         self.thread = thread
-
+        
         if proxy:
+            parts = proxy.split(":")
             proxy = {
                 "scheme": "http",
-                "hostname": proxy.split(":")[1].split("@")[1],
-                "port": int(proxy.split(":")[2]),
-                "username": proxy.split(":")[0],
-                "password": proxy.split(":")[1].split("@")[0]
+                "hostname": parts[0] if "@" not in parts[0] else parts[0].split('@')[1],
+                "port": parts[1] if len(parts) > 1 else None,
+                "username": "" if len(parts) <= 1 or "@" not in parts[0] else parts[0].split('@')[0],
+                "password": "" if len(parts) <= 1 or "@" not in parts[0] else parts[0].split('@')[0]
             }
 
         self.client = Client(name=account, api_id=config.API_ID, api_hash=config.API_HASH, workdir=config.WORKDIR,
