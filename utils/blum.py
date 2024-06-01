@@ -16,13 +16,11 @@ class BlumBot:
         self.thread = thread
 
         if proxy:
-            proxy = {
-                "scheme": "http",
-                "hostname": proxy.split(":")[1].split("@")[1],
-                "port": int(proxy.split(":")[2]),
-                "username": proxy.split(":")[0],
-                "password": proxy.split(":")[1].split("@")[0]
-            }
+            "scheme": "http",
+            "hostname": parts[0] if "@" not in parts[0] and len(parts) == 2 else parts[1].split('@')[1],
+            "port": (parts[2]) if len(parts) == 3 else parts[1],
+            "username": parts[0] if "@" not in parts[0] and len(parts) == 3 else "",
+            "password": parts[1].split('@')[0] if len(parts) == 3 else ""
 
         self.client = Client(name=account, api_id=config.API_ID, api_hash=config.API_HASH, workdir=config.WORKDIR,
                              proxy=proxy)
