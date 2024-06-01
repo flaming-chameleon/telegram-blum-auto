@@ -8,10 +8,10 @@ DELAYS = {
     'ERROR_PLAY': [60, 180],    # delay between errors in the game in seconds
 }
 # Use proxies or not
-PROXY = False
+PROXY = True
 
 # Play drop game
-PLAY_GAMES = True
+PLAY_GAMES = False
 
 # points with each play game; max 280
 POINTS = [240, 280]

@@ -17,11 +17,13 @@ class BlumBot:
         
         if proxy:
             parts = proxy.split(":")
-            "scheme": "http",
-            "hostname": parts[0] if "@" not in parts[0] and len(parts) == 2 else parts[1].split('@')[1],
-            "port": (parts[2]) if len(parts) == 3 else parts[1],
-            "username": parts[0] if "@" not in parts[0] and len(parts) == 3 else "",
-            "password": parts[1].split('@')[0] if len(parts) == 3 else ""
+            proxy = {
+                "scheme": "http",
+                "hostname": parts[0] if "@" not in parts[0] else parts[0].split('@')[1],
+                "port": parts[1] if len(parts) > 1 else None,
+                "username": "" if len(parts) <= 1 or "@" not in parts[0] else parts[0].split('@')[0],
+                "password": "" if len(parts) <= 1 or "@" not in parts[0] else parts[0].split('@')[0]
+            }
 
         self.client = Client(name=account, api_id=config.API_ID, api_hash=config.API_HASH, workdir=config.WORKDIR,
                              proxy=proxy)

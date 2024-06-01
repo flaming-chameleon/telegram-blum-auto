@@ -43,8 +43,10 @@ async def main():
                 tasks.append(asyncio.create_task(start(account=account, thread=thread, proxy=proxy)))
 
             await asyncio.gather(*tasks)
-        except ValueError:
-            logger.error('No sessions, please add one by typing 2 in this CMD next start')
+        except ValueError as error:
+            logger.error('I guess there ain`t any sessions, please add one by typing 2 in this CMD next start')
+            logger.error('If you think that sessions are valid, below is error, please send it in telegram chat')
+            logger.error(error)
 
 if __name__ == '__main__':
     print("""
