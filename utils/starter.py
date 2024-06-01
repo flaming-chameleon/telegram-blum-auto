@@ -30,6 +30,8 @@ async def start(thread: int, account: str, proxy: [str, None]):
 
                 if play_passes and play_passes > 0 and config.PLAY_GAMES is True:
                     await blum.play_game(play_passes)
+                elif config.PLAY_GAMES is False:
+                    play_passes = 0
 
                 await sleep(uniform(3, 10))
 
