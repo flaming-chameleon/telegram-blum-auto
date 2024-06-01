@@ -14,8 +14,9 @@ class BlumBot:
         """
         self.proxy = f"http://{proxy}" if proxy is not None else None
         self.thread = thread
-
+        
         if proxy:
+            parts = proxy.split(":")
             "scheme": "http",
             "hostname": parts[0] if "@" not in parts[0] and len(parts) == 2 else parts[1].split('@')[1],
             "port": (parts[2]) if len(parts) == 3 else parts[1],
