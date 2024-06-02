@@ -172,6 +172,31 @@ class BlumBot:
             await asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
 
+    async def friendbalance(self):
+        """
+        Gets friend balance
+        """
+        resp = await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy)
+        resp_json = await resp.json()
+        await asyncio.sleep(1)
+
+        claim_amount = resp_json.get("amountForClaim")
+        is_available = resp_json.get("canClaim")
+
+        return (claim_amount,
+                is_available)
+
+    async def friendclaim(self):
+        resp = await self.session.post("https://gateway.blum.codes/v1/friends/claim", proxy=self.proxy)
+        resp_json = await resp.json
+        amount = resp_json.get("claimBalance")
+        if resp.status != 200:
+            await asyncio.sleep(1)
+            resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
+            resp_json = await resp.json
+            amount = resp_json.get("claimBalance")
+        return amount
+
     async def balance(self):
         """
         Get the current balance and farming status.
