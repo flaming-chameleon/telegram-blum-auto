@@ -50,18 +50,21 @@ async def start(thread: int, account: str, proxy: [str, None]):
                                 await blum.start()
                                 logger.info(f"{account} | Start farming!")
                                 max_try -= 1
+                                timestamp, start_time, end_time, play_passes = await blum.balance()
 
                             elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time and max_try > 0:
                                 await blum.refresh()
                                 timestamp, balance = await blum.claim()
                                 logger.success(f"{account} | Claimed reward! Balance: {balance}")
                                 max_try -= 1
+                                timestamp, start_time, end_time, play_passes = await blum.balance()
 
                             elif end_time is not None and timestamp is not None:
                                 sleep_duration = end_time - timestamp
                                 logger.info(f"{account} | Sleep {format_duration(sleep_duration)}")
                                 max_try += 5
                                 await sleep(sleep_duration)
+                                timestamp, start_time, end_time, play_passes = await blum.balance()
 
                             elif max_try == 0:
                                 break
