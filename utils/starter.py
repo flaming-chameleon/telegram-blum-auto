@@ -17,7 +17,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
                                      timeout=aiohttp.ClientTimeout(total=60)) as session:
             try:
                 blum = BlumBot(account=account, thread=thread, session=session, proxy=proxy)
-                max_try = 5
+                max_try = 1
 
                 await sleep(uniform(*config.DELAYS['ACCOUNT']))
                 await blum.login()
@@ -62,7 +62,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
                             elif end_time is not None and timestamp is not None:
                                 sleep_duration = end_time - timestamp
                                 logger.info(f"{account} | Sleep {format_duration(sleep_duration)}")
-                                max_try += 5
+                                max_try += 1
                                 await sleep(sleep_duration)
                                 timestamp, start_time, end_time, play_passes = await blum.balance()
 
