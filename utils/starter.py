@@ -65,6 +65,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
                                 max_try += 1
                                 await sleep(sleep_duration)
                                 timestamp, start_time, end_time, play_passes = await blum.balance()
+                                await blum.refresh()
 
                             elif max_try == 0:
                                 break
