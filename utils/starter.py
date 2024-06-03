@@ -17,7 +17,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
                                      timeout=aiohttp.ClientTimeout(total=60)) as session:
             try:
                 blum = BlumBot(account=account, thread=thread, session=session, proxy=proxy)
-                max_try = 1
+                max_try = 2
 
                 await sleep(uniform(*config.DELAYS['ACCOUNT']))
                 await blum.login()
@@ -30,11 +30,11 @@ async def start(thread: int, account: str, proxy: [str, None]):
 
                         timestamp, start_time, end_time, play_passes = await blum.balance()
 
-                        claim_amount, is_available = await blum.friendbalance()
+                        claim_amount, is_available = await blum.friend_balance()
                         # logger.info(f"{account} | {claim_amount} | {is_available}")
                         if claim_amount != 0 and is_available:
-                            amount = await blum.friendclaim()
-                            logger.success(f"Claimed friend ref reward: {amount}")
+                            amount = await blum.friend_claim()
+                            logger.success(f"Claimed friend ref reward {amount}")
 
                         if config.PLAY_GAMES is False:
                             play_passes = 0
@@ -43,28 +43,24 @@ async def start(thread: int, account: str, proxy: [str, None]):
 
                         await sleep(uniform(3, 10))
 
-                        timestamp, start_time, end_time, play_passes = await blum.balance()
-
                         try:
+                            timestamp, start_time, end_time, play_passes = await blum.balance()
                             if start_time is None and end_time is None and max_try > 0:
                                 await blum.start()
                                 logger.info(f"{account} | Start farming!")
                                 max_try -= 1
-                                timestamp, start_time, end_time, play_passes = await blum.balance()
 
                             elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time and max_try > 0:
                                 await blum.refresh()
                                 timestamp, balance = await blum.claim()
                                 logger.success(f"{account} | Claimed reward! Balance: {balance}")
                                 max_try -= 1
-                                timestamp, start_time, end_time, play_passes = await blum.balance()
 
                             elif end_time is not None and timestamp is not None:
                                 sleep_duration = end_time - timestamp
                                 logger.info(f"{account} | Sleep {format_duration(sleep_duration)}")
                                 max_try += 1
                                 await sleep(sleep_duration)
-                                timestamp, start_time, end_time, play_passes = await blum.balance()
                                 await blum.refresh()
 
                             elif max_try == 0:
@@ -79,12 +75,8 @@ async def start(thread: int, account: str, proxy: [str, None]):
             except Exception as outer_e:
                 logger.error(f"{account} | Session error: {outer_e}")
             finally:
-                logger.info(f"{account} | Reconnecting, 60 s")
-                await sleep(60)
-
-
-async def stats():
-    logger.success("Analytics disabled")
+                logger.info(f"{account} | Reconnecting, 61 s")
+                await sleep(61)
 
 
 async def stats():
