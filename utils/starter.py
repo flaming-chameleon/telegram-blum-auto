@@ -34,7 +34,7 @@ async def start(thread: int, account: str, proxy: [str, None]):
                         # logger.info(f"{account} | {claim_amount} | {is_available}")
                         if claim_amount != 0 and is_available:
                             amount = await blum.friend_claim()
-                            logger.success(f"Claimed friend ref reward {amount}")
+                            logger.success(f"{account} | Claimed friend ref reward {amount}")
 
                         if config.PLAY_GAMES is False:
                             play_passes = 0
