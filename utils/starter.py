@@ -13,7 +13,8 @@ from utils.helper import format_duration
 
 async def start(thread: int, account: str, proxy: [str, None]):
     while True:
-        async with CloudflareScraper(headers={'User-Agent': generate_random_user_agent(device_type='android', browser_type='chrome'),
+        async with CloudflareScraper(headers={'User-Agent': generate_random_user_agent(device_type='android',
+                                                                                       browser_type='chrome')},
                                      timeout=aiohttp.ClientTimeout(total=60)) as session:
             try:
                 blum = BlumBot(account=account, thread=thread, session=session, proxy=proxy)
