@@ -51,7 +51,8 @@ async def start(thread: int, account: str, proxy: [str, None]):
                                 logger.info(f"{account} | Start farming!")
                                 max_try -= 1
 
-                            elif start_time is not None and end_time is not None and timestamp is not None and timestamp >= end_time and max_try > 0:
+                            elif (start_time is not None and end_time is not None and timestamp is not None and 
+                                  timestamp >= end_time and max_try > 0):
                                 await blum.refresh()
                                 timestamp, balance = await blum.claim()
                                 logger.success(f"{account} | Claimed reward! Balance: {balance}")
