@@ -41,7 +41,7 @@ class BlumBot:
         Claim a task given its task dictionary.
         """
         resp = await self.session.post(f'https://game-domain.blum.codes/api/v1/tasks/{task["id"]}/claim',
-                                       proxy=self.proxy)
+                                       proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
         
         logger.debug(f"{self.client.name} | claim_task response: {resp_json}")
@@ -53,7 +53,7 @@ class BlumBot:
         Start a task given its task dictionary.
         """
         resp = await self.session.post(f'https://game-domain.blum.codes/api/v1/tasks/{task["id"]}/start',
-                                       proxy=self.proxy)
+                                       proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
 
         logger.debug(f"{self.client.name} | start_complete_task response: {resp_json}")
@@ -62,7 +62,7 @@ class BlumBot:
         """
         Retrieve the list of available tasks.
         """
-        resp = await self.session.get('https://game-domain.blum.codes/api/v1/tasks', proxy=self.proxy)
+        resp = await self.session.get('https://game-domain.blum.codes/api/v1/tasks', proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
 
         logger.debug(f"{self.client.name} | get_tasks response: {resp_json}")
@@ -79,32 +79,37 @@ class BlumBot:
         Play the game a specified number of times using available play passes.
         """
         while play_passes:
-            await asyncio.sleep(random.uniform(*config.DELAYS['PLAY']))
-            game_id = await self.start_game()
+            try:
+                await asyncio.sleep(random.uniform(*config.DELAYS['PLAY']))
+                game_id = await self.start_game()
 
-            if not game_id or game_id == "cannot start game":
-                logger.info(f"{self.client.name} | Couldn't start play in game! play_passes: {play_passes}")
-                break
+                if not game_id or game_id == "cannot start game":
+                    logger.info(f"{self.client.name} | Couldn't start play in game! play_passes: {play_passes}")
+                    break
 
-            await asyncio.sleep(random.uniform(30, 40))
+                await asyncio.sleep(random.uniform(30, 40))
 
-            msg, points = await self.claim_game(game_id)
-            if isinstance(msg, bool) and msg:
-                logger.info(f"{self.client.name} | Finish play in game!; reward: {points}")
-            else:
-                logger.info(f"{self.client.name} | Couldn't play game; msg: {msg} play_passes: {play_passes}")
-                break
-                    
-            await asyncio.sleep(random.uniform(30, 40))
+                msg, points = await self.claim_game(game_id)
+                if isinstance(msg, bool) and msg:
+                    logger.info(f"{self.client.name} | Finish play in game!; reward: {points}")
+                else:
+                    logger.info(f"{self.client.name} | Couldn't play game; msg: {msg} play_passes: {play_passes}")
+                    break
 
-            play_passes -= 1
+                await asyncio.sleep(random.uniform(30, 40))
+
+                play_passes -= 1
+
+            except Exception as e:
+                logger.error(f"{self.client.name} | Error occurred during play_game: {e}")
+                await asyncio.sleep(random.uniform(*config.DELAYS['ERROR_PLAY']))
 
     async def claim_daily_reward(self):
         """
         Claim the daily reward.
         """
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/daily-reward?offset=-180",
-                                       proxy=self.proxy)
+                                       proxy=self.proxy, ssl=False)
         txt = await resp.text()
         await asyncio.sleep(1)
         return True if txt == 'OK' else txt
@@ -114,7 +119,7 @@ class BlumBot:
         Refresh the authorization token.
         """
         json_data = {'refresh': self.refresh_token}
-        resp = await self.session.post("https://gateway.blum.codes/v1/auth/refresh", json=json_data, proxy=self.proxy)
+        resp = await self.session.post("https://gateway.blum.codes/v1/auth/refresh", json=json_data, proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
 
         self.session.headers['Authorization'] = "Bearer " + resp_json.get('access')
@@ -124,7 +129,7 @@ class BlumBot:
         """
         Start a new game and return the game ID.
         """
-        resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/play", proxy=self.proxy)
+        resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/play", proxy=self.proxy, ssl=False)
         response_data = await resp.json()
         if "gameId" in response_data:
             return response_data.get("gameId")
@@ -139,11 +144,11 @@ class BlumBot:
         json_data = {"gameId": game_id, "points": points}
 
         resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/claim", json=json_data,
-                                       proxy=self.proxy)
+                                       proxy=self.proxy, ssl=False)
         if resp.status != 200:
             await asyncio.sleep(1)
             resp = await self.session.post("https://game-domain.blum.codes/api/v1/game/claim", json=json_data,
-                                           proxy=self.proxy)
+                                           proxy=self.proxy, ssl=False)
         
         txt = await resp.text()
 
@@ -153,10 +158,10 @@ class BlumBot:
         """
         Claim the farming rewards.
         """
-        resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy)
+        resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy, ssl=False)
         if resp.status != 200:
             await asyncio.sleep(1)
-            resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy)
+            resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/claim", proxy=self.proxy, ssl=False)
         
         resp_json = await resp.json()
 
@@ -166,17 +171,17 @@ class BlumBot:
         """
         Start the farming process.
         """
-        resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
+        resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy, ssl=False)
 
         if resp.status != 200:
             await asyncio.sleep(1)
-            resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy)
+            resp = await self.session.post("https://game-domain.blum.codes/api/v1/farming/start", proxy=self.proxy, ssl=False)
 
     async def friend_balance(self):
         """
         Gets friend balance
         """
-        resp = await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy)
+        resp = await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
         await asyncio.sleep(1)
 
@@ -184,7 +189,7 @@ class BlumBot:
         is_available = resp_json.get("canClaim")
 
         if resp.status != 200:
-            resp = await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy)
+            resp = await self.session.get("https://gateway.blum.codes/v1/friends/balance", proxy=self.proxy, ssl=False)
             resp_json = await resp.json()
             claim_amount = resp_json.get("amountForClaim")
             is_available = resp_json.get("canClaim")
@@ -193,12 +198,12 @@ class BlumBot:
                 is_available)
 
     async def friend_claim(self):
-        resp = await self.session.post("https://gateway.blum.codes/v1/friends/claim", proxy=self.proxy)
+        resp = await self.session.post("https://gateway.blum.codes/v1/friends/claim", proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
         amount = resp_json.get("claimBalance")
         if resp.status != 200:
             await asyncio.sleep(1)
-            resp = await self.session.post("https://gateway.blum.codes/v1/friends/claim", proxy=self.proxy)
+            resp = await self.session.post("https://gateway.blum.codes/v1/friends/claim", proxy=self.proxy, ssl=False)
             resp_json = await resp.json()
             amount = resp_json.get("claimBalance")
         return amount
@@ -207,7 +212,7 @@ class BlumBot:
         """
         Get the current balance and farming status.
         """
-        resp = await self.session.get("https://game-domain.blum.codes/api/v1/user/balance", proxy=self.proxy)
+        resp = await self.session.get("https://game-domain.blum.codes/api/v1/user/balance", proxy=self.proxy, ssl=False)
         resp_json = await resp.json()
         await asyncio.sleep(1)
     
@@ -233,7 +238,7 @@ class BlumBot:
             json_data = {"query": await self.get_tg_web_data()}
     
             resp = await self.session.post("https://gateway.blum.codes/v1/auth/provider/PROVIDER_TELEGRAM_MINI_APP",
-                                           json=json_data, proxy=self.proxy)
+                                           json=json_data, proxy=self.proxy, ssl=False)
             resp_json = await resp.json()
     
             self.session.headers['Authorization'] = "Bearer " + resp_json.get("token").get("access")
