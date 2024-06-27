@@ -148,24 +148,6 @@ API_HASH = 'your_api_hash'
 ```
 
 
-## Donate to HiddenCode community
-
-EVM (ethereum, bsc, arb, ...):
-
-```0xA02008a2b8bB89D4013be11354D3Dc3bBD1AC014```
-
-
-Solana:
-
-```EaFNxzLD7kQ4HBcKt9QVZ3tmf4rfqXinP1up5MnNUHpF```
-
-
-Ton:
-
-```UQAulqCqInEU5YUlzlWOv23vMNuz2a2HDZFsQbbNkAoI1MPM```
-
-
-
 ### Контакт
 
 Для поддержки или вопросов свяжитесь со мной в Telegram: [@hidden_coding](https://t.me/hidden_coding)
