@@ -1,26 +1,33 @@
-# api id, hash
-API_ID = 1488
-API_HASH = '1488ugiukl'
+from dotenv import load_dotenv
+import os
 
+# Load environment variables from .env file
+load_dotenv()
+
+# API ID and Hash
+API_ID = int(os.getenv('API_ID'))
+API_HASH = os.getenv('API_HASH')
+
+# Delays (still hardcoded, but could be moved to .env if needed)
 DELAYS = {
-    'ACCOUNT': [5, 15],  # delay between connections to accounts (the more accounts, the longer the delay)
-    'PLAY': [5, 15],   # delay between play in seconds
-    'ERROR_PLAY': [60, 180],    # delay between errors in the game in seconds
+    'ACCOUNT': [5, 15],
+    'PLAY': [5, 15],
+    'ERROR_PLAY': [60, 180],
 }
+
 # Use proxies or not
-PROXY = False
+PROXY = os.getenv('PROXY') == 'True'
 
 # Play drop game
-PLAY_GAMES = True
+PLAY_GAMES = os.getenv('PLAY_GAMES') == 'True'
 
-# points with each play game; max 280
-POINTS = [240, 280]
+# Points with each play game; max 280
+POINTS = list(map(int, os.getenv('POINTS').split(',')))
 
-# title blacklist tasks (do not change)
-BLACKLIST_TASKS = ['Farm points']
+# Title blacklist tasks
+BLACKLIST_TASKS = os.getenv('BLACKLIST_TASKS').split(',')
 
-# session folder (do not change)
-WORKDIR = "sessions/"
+# Session folder
+WORKDIR = os.getenv('WORKDIR')
 
-
-ACCOUNT_PER_ONCE = 3
+ACCOUNT_PER_ONCE = int(os.getenv('ACCOUNT_PER_ONCE'))

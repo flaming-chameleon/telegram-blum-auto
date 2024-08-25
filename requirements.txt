@@ -4,3 +4,5 @@ loguru==0.7.2
 aiohttp==3.9.5
 aiocfscrape==1.0.0
 pydantic-settings==2.2.1
+
+python-dotenv~=1.0.1
