@@ -3,7 +3,7 @@ from random import uniform
 
 import aiohttp
 from aiocfscrape import CloudflareScraper
-from .agents import generate_random_user_agent
+from utils.agents import generate_random_user_agent
 
 from data import config
 from utils.blum import BlumBot
