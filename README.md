@@ -1,8 +1,17 @@
 [![Join our Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/hidden_coding)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/aero25x)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=x&logoColor=white)](https://x.com/aero25x)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@flaming_chameleon)
+
+
+[MIGRATED TO NEW REPO](https://github.com/HiddenCodeDevs/BlumTelegramBot)
 
 ![image psd(9)](https://github.com/flaming-chameleon/telegram-blum-auto/assets/73156836/187c6764-d6af-4f60-a7e2-f3bc656225c9)
 
 [Latest Version here](https://gitlab.com/D4rkKaizen/telegram-blum-auto)
+
+
+
 
 ## Recommendation before usage
 
@@ -152,3 +161,10 @@ API_HASH = 'your_api_hash'
 ### Контакт
 
 Для поддержки или вопросов свяжитесь со мной в Telegram: [@hidden_coding](https://t.me/hidden_coding)
+
+[![Join our Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/hidden_coding)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/aero25x)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=x&logoColor=white)](https://x.com/aero25x)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@flaming_chameleon)
+
+
